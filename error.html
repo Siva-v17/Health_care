@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>404 | Heartfelt Healthcare — Page Not Found</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --deep-navy: #0f172a;
+      --deeper-bg: #020617;
+      --pure-white: #ffffff;
+      --soft-gray: #cbd5e1;
+      --card-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--deep-navy), var(--deeper-bg));
+      color: var(--pure-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 2rem 1.5rem;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 30%, rgba(255,255,255,0.06), transparent 45%),
+        radial-gradient(circle at 85% 70%, rgba(20,184,166,0.08), transparent 50%),
+        radial-gradient(circle at 40% 85%, rgba(255,255,255,0.03), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .error-page {
+      text-align: center;
+      max-width: 760px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(2px);
+      background: rgba(15, 23, 42, 0.2);
+      border-radius: 64px;
+      padding: 2rem 2rem 3rem;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+
+    .error-code {
+      font-size: clamp(100px, 20vw, 180px);
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: var(--pure-white);
+      text-shadow: 0 0 35px rgba(255,255,255,0.25), 0 8px 20px rgba(0,0,0,0.2);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .heart {
+      font-size: 82px;
+      margin: 12px 0 8px;
+      display: inline-block;
+      filter: drop-shadow(0 0 12px rgba(255,80,120,0.4));
+      cursor: default;
+    }
+
+    .error-title {
+      font-size: clamp(28px, 7vw, 44px);
+      font-weight: 700;
+      margin: 18px 0 12px;
+      background: linear-gradient(120deg, #ffffff, #b9f5ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .error-text {
+      max-width: 550px;
+      margin: 12px auto 0;
+      color: var(--soft-gray);
+      font-size: 1.1rem;
+      line-height: 1.65;
+      font-weight: 450;
+      background: rgba(0,0,0,0.2);
+      padding: 12px 20px;
+      border-radius: 48px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Button row — both buttons side by side */
+    .btn-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 38px;
+      flex-wrap: wrap;
+    }
+
+    /* Shared button base */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 36px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      box-shadow: var(--card-shadow);
+    }
+
+    /* Back to Home — white filled */
+    .btn-home {
+      background: var(--pure-white);
+      color: #0f172a;
+    }
+    .btn-home:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.4);
+    }
+    .btn-home:active { transform: translateY(2px); }
+
+    /* Go Back — outlined / ghost style */
+    .btn-back {
+      background: rgba(255,255,255,0.08);
+      color: var(--pure-white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(6px);
+    }
+    .btn-back:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.45);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.35);
+    }
+    .btn-back:active { transform: translateY(2px); }
+
+    /* shimmer sweep on hover */
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(20,184,166,0.18), transparent);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+    .btn:hover::before { left: 100%; }
+
+    /* pulse ring */
+    .pulse-ring {
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: 0 0 12px rgba(20,184,166,0.2);
+    }
+
+    /* focus accessibility */
+    .btn:focus-visible {
+      outline: 3px solid #14b8a6;
+      outline-offset: 4px;
+      border-radius: 60px;
+    }
+
+    @media (max-width: 620px) {
+      .error-page { padding: 1.5rem 1.2rem 2.2rem; border-radius: 48px; }
+      .btn { padding: 11px 26px; font-size: 0.95rem; }
+      .error-text { font-size: 0.95rem; padding: 10px 16px; }
+      .heart { font-size: 64px; }
+      .btn-group { gap: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .pulse-ring { width: 200px; height: 200px; }
+      .btn-group { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="pulse-ring"></div>
+
+<section class="error-page" aria-labelledby="error-title-id">
+  <div class="error-code" aria-label="Error 404">404</div>
+  <div class="heart" aria-label="healthcare heart icon">🫀</div>
+  <h1 id="error-title-id" class="error-title">Heartfelt page not found</h1>
+  <p class="error-text">
+    Oops! The healthcare resource or appointment page you're looking for seems to have wandered off.
+    Don't worry — your well-being is our priority. Let's return you to a safe, secure place.
+  </p>
+
+  <!-- BUTTON GROUP — Home + Go Back -->
+  <div class="btn-group">
+    <a href="./index.html" class="btn btn-home" aria-label="Navigate back to home page">
+      🏠 Back to Home
+    </a>
+    <button class="btn btn-back" onclick="history.back()" aria-label="Go back to previous page">
+      ← Go Back
+    </button>
+  </div>
+</section>
+
+<script>
+  (function () {
+    if (typeof gsap === 'undefined') {
+      console.warn('GSAP not loaded');
+      return;
+    }
+
+    gsap.killTweensOf([".error-code",".heart",".error-title",".error-text",".btn-group",".pulse-ring"]);
+    gsap.set([".error-code",".heart",".error-title",".error-text",".btn-group",".pulse-ring"], { clearProps: "all" });
+
+    // 404 bounce in
+    gsap.from(".error-code", { y: -100, opacity: 0, duration: 1.1, ease: "back.out(1.2)", clearProps: "y,opacity" });
+
+    // Heart pop then beat
+    gsap.from(".heart", {
+      scale: 0, opacity: 0, duration: 0.85, delay: 0.45, ease: "elastic.out(1, 0.5)", clearProps: "scale,opacity",
+      onComplete: () => {
+        gsap.to(".heart", { scale: 1.12, duration: 0.65, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "center center" });
+      }
+    });
+
+    // Title from left
+    gsap.from(".error-title", { x: -70, opacity: 0, duration: 0.9, delay: 0.75, ease: "power3.out", clearProps: "x,opacity" });
+
+    // Text from right
+    gsap.from(".error-text", { x: 70, opacity: 0, duration: 0.9, delay: 0.95, ease: "power2.out", clearProps: "x,opacity" });
+
+    // Button group fade up — both buttons together
+    gsap.from(".btn-group", { y: 50, opacity: 0, duration: 0.85, delay: 1.2, ease: "back.out(0.8)", clearProps: "y,opacity" });
+
+    // Pulse ring sonar
+    gsap.to(".pulse-ring", { scale: 2.8, opacity: 0, duration: 2.2, repeat: -1, ease: "power1.out", delay: 0.3, transformOrigin: "center center" });
+
+    // Heart glow
+    gsap.to(".heart", { filter: "drop-shadow(0 0 18px rgba(255,100,130,0.8))", duration: 0.9, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+    // 404 float
+    gsap.to(".error-code", { y: -6, duration: 2.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.5 });
+
+    // Ripple on both buttons
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = btn.getBoundingClientRect();
+        Object.assign(ripple.style, {
+          position: 'absolute', borderRadius: '50%',
+          backgroundColor: 'rgba(20,184,166,0.3)',
+          width: '40px', height: '40px',
+          left: (e.clientX - rect.left - 20) + 'px',
+          top: (e.clientY - rect.top - 20) + 'px',
+          pointerEvents: 'none',
+          transform: 'scale(0)',
+          transition: 'transform 0.4s ease, opacity 0.4s ease',
+          opacity: '1'
+        });
+        btn.appendChild(ripple);
+        requestAnimationFrame(() => { ripple.style.transform = 'scale(8)'; ripple.style.opacity = '0'; });
+        setTimeout(() => ripple.remove(), 500);
+      });
+    });
+
+    window.addEventListener('load', () => {
+      document.body.style.overflowY = 'auto';
+      [".error-code",".error-title",".error-text",".btn-group"].forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el && getComputedStyle(el).opacity === '0') gsap.set(sel, { opacity: 1 });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
